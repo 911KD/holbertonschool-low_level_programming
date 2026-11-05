@@ -3,7 +3,7 @@
 /**
  * main - Entry point
  *
- * Description: prints the alphabet in lowercase
+ * Description: prints the alphabet in lowercase then in uppercase
  *
  * Return: Always 0 (Success)
  */
@@ -17,12 +17,12 @@ int main(void)
 		putchar(c);
 		c++;
 	}
-    c= 'A';
-    while (c<='Z')
-    {
-        putchar(c);
-        c++;
-    }
+	c = 'A';
+	while (c <= 'Z')
+	{
+		putchar(c);
+		c++;
+	}
 	putchar('\n');
 	return (0);
 }
