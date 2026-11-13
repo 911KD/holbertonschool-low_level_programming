@@ -30,6 +30,39 @@ void clear_input(void)
 }
 
 /**
+ * read_number - prints a label and reads an integer
+ * @label: the prompt to print (e.g. "A: ")
+ * @n: where to store the number
+ *
+ * Return: 1 on success, 0 if the input was not a number
+ */
+int read_number(const char *label, int *n)
+{
+	printf("%s", label);
+	if (scanf("%d", n) != 1)
+	{
+		clear_input();
+		printf("Invalid input\n");
+		return (0);
+	}
+	return (1);
+}
+
+/**
+ * do_add - reads A and B and prints their sum
+ *
+ * Return: nothing
+ */
+void do_add(void)
+{
+	int a, b;
+
+	if (!read_number("A: ", &a) || !read_number("B: ", &b))
+		return;
+	printf("Result: %d\n", a + b);
+}
+
+/**
  * main - entry point of the simple calculator
  *
  * Return: Always 0 (Success)
@@ -52,7 +85,9 @@ int main(void)
 			printf("Invalid choice\n");
 			continue;
 		}
-		if (choice < 0 || choice > 4)
+		if (choice == 1)
+			do_add();
+		else if (choice < 0 || choice > 4)
 			printf("Invalid choice\n");
 	}
 	printf("Bye!\n");
