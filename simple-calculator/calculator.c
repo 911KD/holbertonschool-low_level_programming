@@ -77,6 +77,20 @@ void do_sub(void)
 }
 
 /**
+ * do_mul - reads A and B and prints A * B
+ *
+ * Return: nothing
+ */
+void do_mul(void)
+{
+	int a, b;
+
+	if (!read_number("A: ", &a) || !read_number("B: ", &b))
+		return;
+	printf("Result: %d\n", a * b);
+}
+
+/**
  * main - entry point of the simple calculator
  *
  * Return: Always 0 (Success)
@@ -103,6 +117,8 @@ int main(void)
 			do_add();
 		else if (choice == 2)
 			do_sub();
+		else if (choice == 3)
+			do_mul();
 		else if (choice < 0 || choice > 4)
 			printf("Invalid choice\n");
 	}
