@@ -30,16 +30,16 @@ void clear_input(void)
 }
 
 /**
- * read_number - prints a label and reads an integer
+ * read_number - prints a label and reads a decimal number
  * @label: the prompt to print (e.g. "A: ")
  * @n: where to store the number
  *
  * Return: 1 on success, 0 if the input was not a number
  */
-int read_number(const char *label, int *n)
+int read_number(const char *label, double *n)
 {
 	printf("%s", label);
-	if (scanf("%d", n) != 1)
+	if (scanf("%lf", n) != 1)
 	{
 		clear_input();
 		printf("Invalid input\n");
@@ -49,45 +49,40 @@ int read_number(const char *label, int *n)
 }
 
 /**
- * do_add - reads A and B and prints their sum
+ * print_result - prints a result without useless trailing zeros
+ * @r: the value to print
  *
  * Return: nothing
  */
-void do_add(void)
+void print_result(double r)
 {
-	int a, b;
-
-	if (!read_number("A: ", &a) || !read_number("B: ", &b))
-		return;
-	printf("Result: %d\n", a + b);
+	if (r == 0)
+		r = 0;
+	printf("Result: %.15g\n", r);
 }
 
 /**
- * do_sub - reads A and B and prints A - B
+ * calculate - reads A and B and applies the chosen operation
+ * @choice: 1 add, 2 subtract, 3 multiply, 4 divide
  *
  * Return: nothing
  */
-void do_sub(void)
+void calculate(int choice)
 {
-	int a, b;
+	double a, b;
 
 	if (!read_number("A: ", &a) || !read_number("B: ", &b))
 		return;
-	printf("Result: %d\n", a - b);
-}
-
-/**
- * do_mul - reads A and B and prints A * B
- *
- * Return: nothing
- */
-void do_mul(void)
-{
-	int a, b;
-
-	if (!read_number("A: ", &a) || !read_number("B: ", &b))
-		return;
-	printf("Result: %d\n", a * b);
+	if (choice == 1)
+		print_result(a + b);
+	else if (choice == 2)
+		print_result(a - b);
+	else if (choice == 3)
+		print_result(a * b);
+	else if (b == 0)
+		printf("Error: division by zero\n");
+	else
+		print_result(a / b);
 }
 
 /**
@@ -113,13 +108,9 @@ int main(void)
 			printf("Invalid choice\n");
 			continue;
 		}
-		if (choice == 1)
-			do_add();
-		else if (choice == 2)
-			do_sub();
-		else if (choice == 3)
-			do_mul();
-		else if (choice < 0 || choice > 4)
+		if (choice >= 1 && choice <= 4)
+			calculate(choice);
+		else
 			printf("Invalid choice\n");
 	}
 	printf("Bye!\n");
